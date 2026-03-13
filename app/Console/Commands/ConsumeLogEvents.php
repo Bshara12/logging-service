@@ -32,7 +32,7 @@ class ConsumeLogEvents extends Command
 
     $channel = $connection->channel();
     $channel->queue_declare('logs_queue', false, true, false, false);
-
+    $channel->basic_qos(null, 1, null);
     $channel->basic_qos(0, 1, false);
 
     $channel->basic_consume(

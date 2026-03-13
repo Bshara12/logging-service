@@ -9,5 +9,11 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 
-Route::get('/logs', [LogController::class, 'index']);
-Route::get('/audit-logs', [LogController::class, 'auditLogs']);
+// Route::get('/logs', [LogController::class, 'index']);
+// Route::get('/audit-logs', [LogController::class, 'auditLogs']);
+
+Route::middleware('throttle:60,1')->group(function () {
+
+  Route::get('/logs', [LogController::class, 'index']);
+  Route::get('/audit-logs', [LogController::class, 'auditLogs']);
+});
